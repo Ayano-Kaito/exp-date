@@ -1,8 +1,7 @@
 import { createStore } from 'redux'
 
 const initData = {
-    data: [],
-    message: '',
+    items: [{"category": "食材", "categoryId": 1}],
     mode: 'default'
 };
 // レデューサー
@@ -23,11 +22,13 @@ export function categoryReducer(state = initData, action) {
 }
 
 function addReducer(state, action) {
-    let data = action
-    let newdata = state.data.slice();
-    newdata.push(data);
+    let items = {
+        category: action.category
+    }
+    let newitem = state.items.slice();
+    newitem.push(items);
     return {
-        date: newdata,
+        items: newitem,
         mode: 'default'
     };
 }
@@ -37,10 +38,10 @@ function editReducer(state, action) {
 }
 
 function deleteReducer(state, action) {
-    let newdata = state.data.slice();
-    newdata.splice(action.index, 1);
+    let newitem = state.items.slice();
+    newitem.splice(action.index, 1);
     return {
-        data: newdata,
+        items: newitem,
         mode: 'default'
     };
 }
