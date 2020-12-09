@@ -15,7 +15,6 @@ class Category extends Component {
         super(props);
         this.state = {
             categories: [],
-            addCategory: false,
             Component: null,
             isCategoryAddModal: false,
             isCategoryEditModal: false,
@@ -26,8 +25,8 @@ class Category extends Component {
     isShowAddModal(boolean) {
         this.setState({ isCategoryAddModal: boolean })
     }
-    isShowEditModal(boolean) {
-        this.setState({ isCategoryEditModal: boolean })
+    isShowEditModal(boolean, Id) {
+        this.setState({ isCategoryEditModal: boolean, categoryId: Id })
     }
     isShowDelModal(boolean) {
         this.setState({ isCategoryDelModal: boolean })
@@ -56,7 +55,7 @@ class Category extends Component {
                     {this.state.categories.map((category) => (
                         <TableRow key={category.categoryId}>
                             <TableCell onClick={this.isShowItem}>{category.categoryName}</TableCell>
-                            <TableCell onClick={() => this.isShowEditModal(true)}>編集</TableCell>
+                            <TableCell onClick={() => this.isShowEditModal(true, category.categoryId)}>編集</TableCell>
                             <TableCell onClick={() => this.isShowDelModal(true)}>削除</TableCell>
                         </TableRow>
                     ))}
@@ -65,7 +64,7 @@ class Category extends Component {
                     <AddModal />
                 )}
                 { this.state.isCategoryEditModal && (
-                    <EditModal />
+                    <EditModal　/>
                 )}
                 { this.state.isCategoryDelModal && (
                     <DelModal />
