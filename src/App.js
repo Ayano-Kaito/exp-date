@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import * as React from 'react';
+// import { connect } from 'react-redux';
 import Category from './Category/Category'; 
-import categories from './mock/categories';
-// import './App.css';
+import Categories from './mock/categories';
 
-class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Category />    
+        <Category Categories={Categories} />    
       </div>
     );
   }
 }
-
-export default connect() (App);
