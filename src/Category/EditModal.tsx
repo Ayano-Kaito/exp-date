@@ -1,5 +1,3 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -32,39 +30,47 @@ const useStyles = makeStyles(theme => ({
 
 interface Props {
   isOpen: Boolean;
-  onClose?: () => void;
+  category: string;
+  onClose: () => void;
 }
 
-export default class SimpleModal extends React.Component<Props, {}> {
-  // this.props.onClose = () => void;
-  // console.log(this.props.Id)
-  // console.log(this.props.closeModal)
-
+export default class SimpleModal extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isOpen: true,
+      category: this.props.category
+    };
+  }
   const classes = useStyles();
-  const modalStyle = React.useState(getModalStyle);
-  // const open, setOpen = React.useState(true);
-  this.props.isOpen = true;
-  console.log(this.props.isOpen);
+  // const modalStyle: React.useState(getModalStyle);
+  const modalStyle = getModalStyle();
 
-  const handleClose = () => {
-    props.isOpen = false;
+  // const open, setOpen = React.useState(true);
+  // this.props.isOpen = true;
+  // console.log(this.props.isOpen);
+
+  handleClose () {
+    this.setState({ isOpen: false });
   };
 
-  return (
-    <Modal
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      open={open}
-      onClose={handleClose}
-    >
-      <div style={modalStyle} className={classes.paper}>
-        <h2 id="simple-modal-title">カテゴリーを編集します</h2>
-        <p id="simple-modal-description">
-          <input type="text">{}</input>
-          <button onClick={handleClose}>キャンセル</button>
-          <button>編集する</button>
-        </p>
-      </div>
-    </Modal>
-  );
+  render() {
+    return (
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={this.props.isOpen}
+        onClose={this.handleClose}
+      >
+        <div style={this.modalStyle} className={this.classes.paper}>
+          <h2 id="simple-modal-title">カテゴリーを編集します</h2>
+          <p id="simple-modal-description">
+            <input type="text">{}</input>
+            <button onClick={this.handleClose}>キャンセル</button>
+            <button>編集する</button>
+          </p>
+        </div>
+      </Modal>
+    );
+  }
 }

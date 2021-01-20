@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { connect } from 'react-redux';
 import axios from "axios";
 // import './Category.scss';
 import {Table, TableBody, TableHead, TableCell, TableRow} from '@material-ui/core';
@@ -10,15 +9,15 @@ import EditModal from './EditModal';
 import DelModal from './DelModal';
 import Item from '../Item/Item';
 
-interface categoryProps {
-    categories: string,
+type categoryProps = {
+    categories: string[],
     Component: string,
     isCategoryAddModal: boolean,
     isCategoryEditModal: boolean,
     isCategoryDelModal: boolean
 }
 
-export default class Category extends React.Component<categoryProps> {
+class Category extends React.Component<categoryProps> {
     constructor(props: categoryProps) {
         super(props);
         this.state = {
@@ -30,21 +29,21 @@ export default class Category extends React.Component<categoryProps> {
         };
     }
 
-    isShowAddModal(boolean) {
-        this.setState({ isCategoryAddModal: boolean })
+    isShowAddModal(Boolean: boolean) {
+        this.setState({ isCategoryAddModal: Boolean });
     }
-    isShowEditModal(boolean, Id) {
-        this.setState({ isCategoryEditModal: boolean, categoryId: Id })
+    isShowEditModal(boolean: boolean, Id: string) {
+        this.setState({ isCategoryEditModal: boolean, categoryId: Id });
         // console.log('カテゴリー.jsのbool：' + this.state.isCategoryEditModal)
     }
-    isShowDelModal(boolean) {
+    isShowDelModal(boolean: boolean) {
         this.setState({ isCategoryDelModal: boolean })
     }
     isShowItem = () => this.setState({Component: Item})
 
     componentDidMount() {
         axios.get("/api/categories").then((res) => {
-            this.setState({ categories: res.data })
+            this.setState({ categories: res.data.data })
             // console.log(this.state.categories)
         });
     }
@@ -56,30 +55,32 @@ export default class Category extends React.Component<categoryProps> {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan="2">カテゴリーを選択してください</TableCell>
+                        <TableCell colSpan={2}>カテゴリーを選択してください</TableCell>
                         <TableCell onClick={() => this.isShowAddModal(true)}>追加</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {this.state.categories.map((category) => (
-                        <TableRow key={category.categoryId}>
+                    {this.state.categories.map((category, index) => (
+                        <TableRow key={category.index}>
                             <TableCell onClick={this.isShowItem}>{category.categoryName}</TableCell>
                             <TableCell onClick={() => this.isShowEditModal(true, category.categoryId)}>編集</TableCell>
                             <TableCell onClick={() => this.isShowDelModal(true)}>削除</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
-                { this.state.isCategoryAddModal && (
+                { this.props.isCategoryAddModal && (
                     <AddModal />
                 )}
-                { this.state.isCategoryEditModal && (
+                { this.props.isCategoryEditModal && (
                     // <EditModal onClose={() => this.isShowEditModal(false)} />
-                    <EditModal isOpen={this.state.isCategoryEditModal} onClose={this.isShowEditModal(false)} />
+                    <EditModal isOpen={this.props.isCategoryEditModal} onClose={this.isShowEditModal(false)} />
                 )}
-                { this.state.isCategoryDelModal && (
+                { this.props.isCategoryDelModal && (
                     <DelModal />
                 )}
             </Table>
         )
     }
 }
+
+export default Category;
