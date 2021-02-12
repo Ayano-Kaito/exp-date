@@ -25,3 +25,5 @@ mock.onPost("/api/categories", { params: {categoryName: "飲み物"} }).reply(20
 mock.onPut("/api/categories", { params: {categoryId: 4, categoryName: "飲み物"} }).reply(200, {categoryId: 4});
 
 mock.onDelete("/api/categories", { params: {categoryId: 1} }).reply(200);
+
+export default mock;
