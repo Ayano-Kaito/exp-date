@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
+// import { Dialog } from '@material-ui/core';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -57,12 +58,12 @@ export default class SimpleModal extends React.Component<Props> {
 
   render() {
     return (
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={this.props.isOpen}
-        onClose={this.handleClose}
-      >
+      // <Dialog
+      //   aria-labelledby="simple-modal-title"
+      //   aria-describedby="simple-modal-description"
+      //   // open={this.props.isOpen}
+      //   onClose={this.handleClose}
+      // >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="simple-modal-title">カテゴリーを編集します</h2>
           <p id="simple-modal-description">
@@ -71,7 +72,7 @@ export default class SimpleModal extends React.Component<Props> {
             <button>編集する</button>
           </p>
         </div>
-      </Modal>
+      // </Dialog>
     );
   }
 }
