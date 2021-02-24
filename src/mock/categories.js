@@ -1,7 +1,7 @@
 import axios from 'axios';
-import axiosMockAdapter from 'axios-mock-adapter';
+import MockAdapter from 'axios-mock-adapter';
 
-const mock = new axiosMockAdapter(axios);
+const mock = new MockAdapter(axios);
 
 const categories = [
     {
@@ -25,3 +25,5 @@ mock.onPost("/api/categories", { params: {categoryName: "飲み物"} }).reply(20
 mock.onPut("/api/categories", { params: {categoryId: 4, categoryName: "飲み物"} }).reply(200, {categoryId: 4});
 
 mock.onDelete("/api/categories", { params: {categoryId: 1} }).reply(200);
+
+export default mock;
