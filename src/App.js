@@ -9,7 +9,7 @@ const App = () => {
   useEffect(() => {
     axios.get("/api/categories")
       .then((res) => setCategories(res.data))
-  }, []);
+  },[categories]);
 
   return(
     <div className="App">
