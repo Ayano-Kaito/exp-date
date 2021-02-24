@@ -11,11 +11,14 @@ import DelModal from './DelModal';
 import Item from '../Item/Item';
 
 interface categoryProps {
-    categories: any,
-    Component: string,
-    isCategoryAddModal: boolean,
-    isCategoryEditModal: boolean,
-    isCategoryDelModal: boolean
+    categories: {
+        categoryId: string,
+        categoryName: string,
+    }[]
+    // Component: string,
+    // isCategoryAddModal: boolean,
+    // isCategoryEditModal: boolean,
+    // isCategoryDelModal: boolean
 }
 
 class Category extends React.Component<categoryProps> {
