@@ -1,15 +1,21 @@
-import * as React from 'react';
-// import { connect } from 'react-redux';
-import Category from './Category/Category'; 
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
+import Category from './Category/Category';
 import mock from './mock/categories';
 
-export default class App extends React.Component {
-  
-  render() {
-    return (
-      <div className="App">
-        <Category Categories={mock} />
-      </div>
-    );
-  }
-}
+const App = () => {
+  const [categories, setCategories] = useState();
+
+  useEffect(() => {
+    axios.get("/api/categories")
+      .then((res) => setCategories(res.data))
+  }, []);
+
+  return(
+    <div className="App">
+      <Category categories={categories}/>
+    </div>
+  );
+};
+
+export default App
