@@ -1,52 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2a565ceb-0948-4435-a543-803eccc12bcb" name="Default Changelist" comment="" />
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="2a565ceb-0948-4435-a543-803eccc12bcb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Category/AddModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Category/AddModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Category/Category.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Category/Category.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Category/EditModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Category/EditModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mock/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/mock/categories.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="task/category" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="470" />
-    <option name="y" value="102" />
-    <option name="width" value="919" />
-    <option name="height" value="707" />
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
   </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="exp-date" type="b2602c69:ProjectViewProjectNode" />
-              <item name="exp-date" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectId" id="1kAN96gUCSEq1RrtbygBUQ9TNdt" />
+  <component name="ProjectViewState">
+    <option name="compactDirectories" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -60,6 +74,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601856859572</updated>
+      <workItem from="1605139282963" duration="1349000" />
+      <workItem from="1605849925420" duration="84000" />
+      <workItem from="1605850030027" duration="361000" />
+      <workItem from="1612273277828" duration="3444000" />
+      <workItem from="1614174584729" duration="8251000" />
     </task>
     <task id="LOCAL-00001" summary="初期設定">
       <created>1601858967361</created>
@@ -68,42 +87,75 @@
       <option name="project" value="LOCAL" />
       <updated>1601858967361</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="初期設定">
+      <created>1614174750018</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614174750018</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="470" y="102" width="919" height="707" extended-state="0" />
-    <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24971494" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.3284553" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="初期設定" />
     <option name="LAST_COMMIT_MESSAGE" value="初期設定" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="23" key="CommitChangelistDialog2" timestamp="1614174749899">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="0" y="23" key="CommitChangelistDialog2/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614174749899" />
+    <state x="0" y="23" width="1152" height="701" key="DiffContextDialog" timestamp="1614175024489">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="0" y="23" width="1152" height="701" key="DiffContextDialog/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614175024489" />
+    <state width="1878" height="363" key="GridCell.Tab.0.bottom" timestamp="1614184797586">
+      <screen x="-1920" y="-157" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="363" key="GridCell.Tab.0.bottom/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614184797586" />
+    <state width="1398" height="290" key="GridCell.Tab.0.bottom/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@0.23.1440.877" timestamp="1612279617914" />
+    <state width="1398" height="290" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1612273370928" />
+    <state width="1878" height="363" key="GridCell.Tab.0.center" timestamp="1614184797585">
+      <screen x="-1920" y="-157" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="363" key="GridCell.Tab.0.center/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614184797585" />
+    <state width="1398" height="290" key="GridCell.Tab.0.center/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@0.23.1440.877" timestamp="1612279617913" />
+    <state width="1398" height="290" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1612273370928" />
+    <state width="1878" height="363" key="GridCell.Tab.0.left" timestamp="1614184797584">
+      <screen x="-1920" y="-157" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="363" key="GridCell.Tab.0.left/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614184797584" />
+    <state width="1398" height="290" key="GridCell.Tab.0.left/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@0.23.1440.877" timestamp="1612279617912" />
+    <state width="1398" height="290" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1612273370928" />
+    <state width="1878" height="363" key="GridCell.Tab.0.right" timestamp="1614184797586">
+      <screen x="-1920" y="-157" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="363" key="GridCell.Tab.0.right/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614184797586" />
+    <state width="1398" height="290" key="GridCell.Tab.0.right/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@0.23.1440.877" timestamp="1612279617914" />
+    <state width="1398" height="290" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1612273370928" />
+    <state x="0" y="23" key="MergeDialog" timestamp="1614174900934">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="0" y="23" key="MergeDialog/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614174900934" />
+    <state x="0" y="95" key="MultipleFileMergeDialog" timestamp="1614174901008">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="0" y="95" key="MultipleFileMergeDialog/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614174901008" />
+    <state x="0" y="31" key="RollbackChangesDialog" timestamp="1614174742581">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="0" y="31" key="RollbackChangesDialog/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614174742581" />
+    <state x="529" y="179" key="RollbackChangesDialog/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@0.23.1440.877" timestamp="1612277639997" />
+    <state x="0" y="130" key="git4idea.merge.GitPullDialog" timestamp="1614174850552">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="0" y="130" key="git4idea.merge.GitPullDialog/-1440.923.1440.877/-1920.-157.1920.1057/0.23.1440.877@-1920.-157.1920.1057" timestamp="1614174850552" />
+    <state x="500" y="261" key="git4idea.merge.GitPullDialog/0.23.1440.877@0.23.1440.877" timestamp="1612273297161" />
+    <state x="500" y="261" key="git4idea.merge.GitPullDialog/0.923.1440.877/0.23.1440.877@0.23.1440.877" timestamp="1605850042841" />
   </component>
   <component name="masterDetails">
     <states>

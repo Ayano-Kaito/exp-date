@@ -2,7 +2,14 @@ import * as React from 'react';
 // import { connect } from 'react-redux';
 // import { addCategory } from '.Store';
 
-export default class AddModal extends React.Component {
+type AddModalProps = {
+    closeCallback: () => void
+}
+
+export default class AddModal extends React.Component<AddModalProps> {
+    constructor(props: AddModalProps) {
+        super(props);
+    }
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -28,7 +35,7 @@ export default class AddModal extends React.Component {
     render() {
         return (
             <div>
-                <p>カテゴリー追加</p>
+                <p onClick={this.props.closeCallback}>カテゴリー追加</p>
             </div>
         )
     }

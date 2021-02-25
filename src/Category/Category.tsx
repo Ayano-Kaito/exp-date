@@ -9,42 +9,69 @@ import EditModal from './EditModal';
 import DelModal from './DelModal';
 import Item from '../Item/Item';
 
-type categoryProps = {
-    categories: string[],
-    Component: string,
+enum EventType {
+    View,
+    Add,
+    Edit,
+    Delete
+}
+
+type ListState = {
+    categories: CategoryType[],
+    selectedCategory: CategoryType | null,
+    eventType: EventType | null,
     isCategoryAddModal: boolean,
     isCategoryEditModal: boolean,
     isCategoryDelModal: boolean
 }
+type CategoryType = {
+    categoryId: string,
+    categoryName: string
+}
 
-class Category extends React.Component<categoryProps> {
-    constructor(props: categoryProps) {
+class Category extends React.Component<{}, ListState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             categories: [],
-            Component: null,
+            selectedCategory: null,
+            eventType: null,
             isCategoryAddModal: false,
             isCategoryEditModal: false,
             isCategoryDelModal: false
         };
     }
 
-    isShowAddModal(Boolean: boolean) {
-        this.setState({ isCategoryAddModal: Boolean });
+    // isShowAddModal(Boolean: boolean) {
+    //     this.setState({ isCategoryAddModal: Boolean });
+    // }
+    // isShowEditModal(boolean: boolean, Id: string) {
+    //     this.setState({ isCategoryEditModal: boolean, categoryId: Id });
+    //     // console.log('カテゴリー.jsのbool：' + this.state.isCategoryEditModal)
+    // }
+    // isShowDelModal(boolean: boolean) {
+    //     this.setState({ isCategoryDelModal: boolean })
+    // }
+    // isShowItem = () => this.setState({Component: Item})
+    showCategory(category : CategoryType) {
+        this.setState({selectedCategory: category, eventType: EventType.View})
     }
-    isShowEditModal(boolean: boolean, Id: string) {
-        this.setState({ isCategoryEditModal: boolean, categoryId: Id });
-        // console.log('カテゴリー.jsのbool：' + this.state.isCategoryEditModal)
+    editCategory(category: CategoryType) {
+        this.setState({selectedCategory: category, eventType: EventType.Edit})
     }
-    isShowDelModal(boolean: boolean) {
-        this.setState({ isCategoryDelModal: boolean })
+    deleteCategory(category: CategoryType) {
+        this.setState({selectedCategory: category, eventType: EventType.Delete})
     }
-    isShowItem = () => this.setState({Component: Item})
+    addCategory() {
+        this.setState({selectedCategory: {categoryId: '', categoryName: ''}, eventType: EventType.Add})
+    }
+    clearEvent(): void {
+        this.setState({eventType: null})
+    }
 
     componentDidMount() {
         axios.get("/api/categories").then((res) => {
-            this.setState({ categories: res.data.data })
-            // console.log(this.state.categories)
+            this.setState({ categories: res.data })
         });
     }
 
@@ -52,33 +79,28 @@ class Category extends React.Component<categoryProps> {
         // const {Component} = this.state;
         // if(Component) return <Component />;
         return (
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell colSpan={2}>カテゴリーを選択してください</TableCell>
-                        <TableCell onClick={() => this.isShowAddModal(true)}>追加</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {this.state.categories.map((category, index) => (
-                        <TableRow key={category.index}>
-                            <TableCell onClick={this.isShowItem}>{category.categoryName}</TableCell>
-                            <TableCell onClick={() => this.isShowEditModal(true, category.categoryId)}>編集</TableCell>
-                            <TableCell onClick={() => this.isShowDelModal(true)}>削除</TableCell>
+            <div>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell colSpan={2}>カテゴリーを選択してください</TableCell>
+                            <TableCell onClick={() => this.addCategory()}>追加</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-                { this.props.isCategoryAddModal && (
-                    <AddModal />
+                    </TableHead>
+                    <TableBody>
+                        {this.state.categories.map((category) => (
+                            <TableRow key={category.categoryId}>
+                                <TableCell onClick={() => this.showCategory(category)}>{category.categoryName}</TableCell>
+                                <TableCell onClick={() => this.editCategory(category)}>編集</TableCell>
+                                <TableCell onClick={() => this.deleteCategory(category)}>削除</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                {this.state.eventType === EventType.Add && (
+                    <AddModal closeCallback={() => this.clearEvent()} />
                 )}
-                { this.props.isCategoryEditModal && (
-                    // <EditModal onClose={() => this.isShowEditModal(false)} />
-                    <EditModal isOpen={this.props.isCategoryEditModal} onClose={this.isShowEditModal(false)} />
-                )}
-                { this.props.isCategoryDelModal && (
-                    <DelModal />
-                )}
-            </Table>
+            </div>
         )
     }
 }

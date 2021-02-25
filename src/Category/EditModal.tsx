@@ -33,7 +33,7 @@ const modalStyle = getModalStyle();
 // const modalStyle: React.useState(getModalStyle);
 
 interface Props {
-  isOpen: Boolean;
+  isOpen: boolean;
   category: string;
   onClose: () => void;
 }
