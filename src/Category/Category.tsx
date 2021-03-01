@@ -15,8 +15,9 @@ enum EventType {
     Edit,
     Delete
 }
-
-type ListState = {
+interface PropsType {
+}
+interface StateType {
     categories: CategoryType[],
     selectedCategory: CategoryType | null,
     eventType: EventType | null,
@@ -24,13 +25,13 @@ type ListState = {
     isCategoryEditModal: boolean,
     isCategoryDelModal: boolean
 }
-type CategoryType = {
+interface CategoryType {
     categoryId: string,
     categoryName: string
 }
 
-class Category extends React.Component<{}, ListState> {
-    constructor(props: {}) {
+class Category extends React.Component<PropsType, StateType> {
+    constructor(props: PropsType) {
         super(props);
         this.state = {
             categories: [],
