@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from "axios";
+import React from 'react';
 import Category from './Category/Category';
-import mock from './mock/categories';
 
-const App = () => {
-  const [categories, setCategories] = useState();
+export default class App extends React.Component {
 
-  useEffect(() => {
-    axios.get("/api/categories")
-      .then((res) => setCategories(res.data))
-  },[categories]);
-
-  return(
-    <div className="App">
-      <Category categories={categories}/>
-    </div>
-  );
-};
-
-export default App
+  render() {
+    return (
+      <div className="App">
+        <Category />
+      </div>
+    );
+  }
+} 
