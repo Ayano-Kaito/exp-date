@@ -33,14 +33,13 @@ const classes = useStyles();
 const modalStyle = getModalStyle();
 // const modalStyle: React.useState(getModalStyle);
 
-interface Props {
-  isOpen: Boolean;
+interface EditModalProps {
   category: string;
   onClose: () => void;
 }
 
-export default class SimpleModal extends React.Component<Props> {
-  constructor(props: Props) {
+export default class SimpleModal extends React.Component<EditModalProps> {
+  constructor(props: EditModalProps) {
     super(props);
     this.state = {
       isOpen: true,
@@ -66,7 +65,7 @@ export default class SimpleModal extends React.Component<Props> {
       // >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="simple-modal-title">カテゴリーを編集します</h2>
-          <p id="simple-modal-description">
+          <p id="simple-modal-description" onClick={this.props.onClose}>
             <input type="text">{}</input>
             <button onClick={this.handleClose}>キャンセル</button>
             <button>編集する</button>
