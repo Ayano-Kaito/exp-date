@@ -1,12 +1,18 @@
 import * as React from 'react';
-// import { connect } from 'react-redux';
-// import { addCategory } from '.Store';
 
-export default class Item extends React.Component {
+type ItemProps = {
+    onClose: () => void
+}
+
+export default class Item extends React.Component<ItemProps> {
+    constructor(props: ItemProps) {
+        super(props);
+    }
+
     render() {
         return (
             <div>
-                <p>アイテム一覧</p>
+                <p onClick={this.props.onClose}>アイテム一覧</p>
             </div>
         )
     }

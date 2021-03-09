@@ -10,7 +10,7 @@ import DelModal from './DelModal';
 import Item from '../Item/Item';
 
 enum EventType {
-    View,
+    Item,
     Add,
     Edit,
     Delete
@@ -38,14 +38,14 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
             categories: [],
             selectedCategory: null,
             eventType: null,
-                isCategoryAddModal: false,
+            isCategoryAddModal: false,
             isCategoryEditModal: false,
             isCategoryDelModal: false
         };
     }
 
     showCategory(category : CategoryType) {
-        this.setState({selectedCategory: category, eventType: EventType.View})
+        this.setState({selectedCategory: category, eventType: EventType.Item})
     }
     addCategory() {
         this.setState({selectedCategory: {categoryId: '', categoryName: ''}, eventType: EventType.Add})
@@ -63,10 +63,9 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
     componentDidMount() {
         axios.get("/api/categories").then((res) => {
             this.setState({ categories: res.data })
-            console.log(this.state.categories);
         });
     }
-    
+
     render() {
         return (
             <Table>
@@ -79,12 +78,15 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
                 <TableBody>
                     {this.state.categories.map((category) => (
                         <TableRow key={category.categoryId}>
-                             <TableCell onClick={() => this.showCategory(category)}>{category.categoryName}</TableCell>
+                            <TableCell onClick={() => this.showCategory(category)}>{category.categoryName}</TableCell>
                             <TableCell onClick={() => this.editCategory(category)}>編集</TableCell>
                             <TableCell onClick={() => this.deleteCategory(category)}>削除</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
+                {this.state.eventType === EventType.Item && (
+                    <Item onClose={() => this.clearEvent()} />
+                )}
                 {this.state.eventType === EventType.Add && (
                     <AddModal onClose={() => this.clearEvent()} />
                 )}
