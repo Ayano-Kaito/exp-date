@@ -91,7 +91,7 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
                     <AddModal onClose={() => this.clearEvent()} />
                 )}
                 {this.state.eventType === EventType.Edit && (
-                    <EditModal onClose={() => this.clearEvent()} />
+                    <EditModal onClose={() => this.clearEvent()} isOpen={true} />
                 )}
                 {this.state.eventType === EventType.Delete && (
                     <DelModal onClose={() => this.clearEvent()} />
