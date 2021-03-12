@@ -9,9 +9,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 type EditModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  category: {
+    categoryId: string,
+    categoryName: string
+  } | null;
 }
 
 export default function EditModal (props: EditModalProps)  {
+  console.log(props.category);
 
   return (
     <div>
@@ -23,6 +28,7 @@ export default function EditModal (props: EditModalProps)  {
           margin="dense"
           type="text"
           fullWidth
+          value={props.category?.categoryName}
         />
       </DialogContent>
       <DialogActions>
