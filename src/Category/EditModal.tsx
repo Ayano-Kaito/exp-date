@@ -15,12 +15,23 @@ type EditModalProps = {
   } | null;
 }
 
-export default function EditModal (props: EditModalProps)  {
-  console.log(props.category);
+export default function EditModal(props: EditModalProps) {
+  const [name, setName] = React.useState(props.category?.categoryName);
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+
+  const clickEditButton = () => {
+    console.log('送信されたよ！')
+    props.onClose();
+  }
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+    setButtonDisabled(!Boolean(value));
+  }
 
   return (
-    <div>
-      <Dialog open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
+    <Dialog open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
       <DialogTitle>カテゴリー名を編集します</DialogTitle>
       <DialogContent>
         <TextField
@@ -28,18 +39,18 @@ export default function EditModal (props: EditModalProps)  {
           margin="dense"
           type="text"
           fullWidth
-          value={props.category?.categoryName}
+          value={name}
+          onChange={handleNameChange}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose} color="primary">
           キャンセル
         </Button>
-        <Button onClick={props.onClose} color="primary">
-          編集する
+        <Button disabled={buttonDisabled} onClick={clickEditButton} color="primary">
+          更新する
         </Button>
       </DialogActions>
     </Dialog>
-    </div>
   );
 }
