@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,7 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-type EditModalProps = {
+interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   category: {
@@ -15,42 +16,68 @@ type EditModalProps = {
   } | null;
 }
 
-export default function EditModal(props: EditModalProps) {
-  const [name, setName] = React.useState(props.category?.categoryName);
-  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+interface EditModalState {
+  name?: string | null;
+  buttonDisabled: boolean;
+}
 
-  const clickEditButton = () => {
-    console.log('送信されたよ！')
-    props.onClose();
+export default class EditModal extends React.Component<EditModalProps, EditModalState> {
+  constructor(props: EditModalProps) {
+    super(props);
+    this.state = {
+      name: props.category?.categoryName,
+      buttonDisabled: false
+    }
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.clickEditButton = this.clickEditButton.bind(this);
   }
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  clickEditButton() {
+    const params = {
+      categoryId: this.props.category?.categoryId,
+      categoryName: this.state.name
+    }
+    console.log(params)
+    axios.put("/api/categories", { params }).then((res) => {
+      // this.setState({ name: res.data.categoryName })
+      console.log(res.data)
+    })
+    .catch((e) => {
+      console.error('エラーだよ' + e)
+    })
+    this.props.onClose();
+  }
+
+  handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    setName(value);
-    setButtonDisabled(!Boolean(value));
+    this.setState({ name: value })
+    console.log(this.state.name)
+    this.setState({ buttonDisabled: !Boolean(value) });
   }
 
-  return (
-    <Dialog open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
-      <DialogTitle>カテゴリー名を編集します</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          type="text"
-          fullWidth
-          value={name}
-          onChange={handleNameChange}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={props.onClose} color="primary">
-          キャンセル
-        </Button>
-        <Button disabled={buttonDisabled} onClick={clickEditButton} color="primary">
-          更新する
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
+  render() {
+    return (
+      <Dialog open={this.props.isOpen} onClose={this.props.onClose} aria-labelledby="form-dialog-title">
+        <DialogTitle>カテゴリー名を編集します</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            type="text"
+            fullWidth
+            value={this.state.name}
+            onChange={this.handleNameChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.props.onClose} color="primary">
+            キャンセル
+          </Button>
+          <Button disabled={this.state.buttonDisabled} onClick={this.clickEditButton} color="primary">
+            更新する
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
 }

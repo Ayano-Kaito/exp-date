@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from "axios";
+import axios from 'axios';
 import './Category.scss';
 import {Table, TableBody, TableHead, TableCell, TableRow} from '@material-ui/core';
 
