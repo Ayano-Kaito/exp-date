@@ -1,11 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
 interface EditModalProps {
   isOpen: boolean;
@@ -42,16 +37,15 @@ export default class EditModal extends React.Component<EditModalProps, EditModal
       // this.setState({ name: res.data.categoryName })
       console.log(res.data)
     })
-    .catch((e) => {
-      console.error('エラーだよ' + e)
-    })
+      .catch((e) => {
+        console.error(e.response)
+      })
     this.props.onClose();
   }
 
   handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     this.setState({ name: value })
-    console.log(this.state.name)
     this.setState({ buttonDisabled: !Boolean(value) });
   }
 
