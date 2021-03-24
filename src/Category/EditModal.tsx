@@ -1,77 +1,75 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import axios from 'axios';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    position: 'absolute',
-    width: 270,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
-
-const classes = useStyles();
-const modalStyle = getModalStyle();
-// const modalStyle: React.useState(getModalStyle);
-
-interface Props {
-  isOpen: Boolean;
-  category: string;
+interface EditModalProps {
+  isOpen: boolean;
   onClose: () => void;
+  category: {
+    categoryId: string,
+    categoryName: string
+  } | null;
 }
 
-export default class SimpleModal extends React.Component<Props> {
-  constructor(props: Props) {
+interface EditModalState {
+  name?: string | null;
+  buttonDisabled: boolean;
+}
+
+export default class EditModal extends React.Component<EditModalProps, EditModalState> {
+  constructor(props: EditModalProps) {
     super(props);
     this.state = {
-      isOpen: true,
-      category: this.props.category
-    };
+      name: props.category?.categoryName,
+      buttonDisabled: false
+    }
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.clickEditButton = this.clickEditButton.bind(this);
   }
 
-  // const open, setOpen = React.useState(true);
-  // this.props.isOpen = true;
-  // console.log(this.props.isOpen);
+  clickEditButton() {
+    const params = {
+      categoryId: this.props.category?.categoryId,
+      categoryName: this.state.name
+    }
+    axios.put("/api/categories", { params }).then((res) => {
+      console.log(res.data)
+    })
+      .catch((e) => {
+        console.error(e.response)
+      })
+    this.props.onClose();
+  }
 
-  handleClose () {
-    this.setState({ isOpen: false });
-  };
+  handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    this.setState({ name: value })
+    this.setState({ buttonDisabled: !Boolean(value) });
+  }
 
   render() {
     return (
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={this.props.isOpen}
-        onClose={this.handleClose}
-      >
-        <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">カテゴリーを編集します</h2>
-          <p id="simple-modal-description">
-            <input type="text">{}</input>
-            <button onClick={this.handleClose}>キャンセル</button>
-            <button>編集する</button>
-          </p>
-        </div>
-      </Modal>
+      <Dialog open={this.props.isOpen} onClose={this.props.onClose} aria-labelledby="form-dialog-title">
+        <DialogTitle>カテゴリー名を編集します</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            type="text"
+            fullWidth
+            value={this.state.name}
+            onChange={this.handleNameChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.props.onClose} color="primary">
+            キャンセル
+          </Button>
+          <Button disabled={this.state.buttonDisabled} onClick={this.clickEditButton} color="primary">
+            更新する
+          </Button>
+        </DialogActions>
+      </Dialog>
     );
-  }
+  };
 }
