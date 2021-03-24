@@ -32,9 +32,7 @@ export default class EditModal extends React.Component<EditModalProps, EditModal
       categoryId: this.props.category?.categoryId,
       categoryName: this.state.name
     }
-    console.log(params)
     axios.put("/api/categories", { params }).then((res) => {
-      // this.setState({ name: res.data.categoryName })
       console.log(res.data)
     })
       .catch((e) => {
