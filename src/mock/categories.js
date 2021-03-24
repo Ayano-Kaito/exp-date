@@ -24,11 +24,11 @@ const mock = {
 
         mock.onGet("/api/categories").reply(200, categories);
 
-        mock.onPost("/api/categories", { params: {categoryName: "飲み物"} }).reply(201, {categoryId: 4});
+        mock.onPost("/api/categories").reply(201, {categoryId: 4});
 
-        mock.onPut("/api/categories", { params: {categoryId: 1, categoryName: "飲み物"} }).reply(200, {categoryId: 1});
+        mock.onPut("/api/categories").reply(200, {categoryId: 1});
 
-        mock.onDelete("/api/categories", { params: {categoryId: 1} }).reply(200);
+        mock.onDelete("/api/categories").reply(200);
     }
 }
 export default mock;
