@@ -85,7 +85,7 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
                     ))}
                 </TableBody>
                 {this.state.eventType === EventType.Item && (
-                    <Item onClose={() => this.clearEvent()} />
+                    <Item onClose={() => this.clearEvent()} isOpen={true} category={this.state.selectedCategory} />
                 )}
                 {this.state.eventType === EventType.Add && (
                     <AddModal onClose={() => this.clearEvent()} isOpen={true} />
