@@ -18,6 +18,7 @@ export default function DeleteModal(props: DeleteModalProps) {
       categoryId: props.category?.categoryId
     };
     axios.post("/api/categories", { params }).then((res) => {
+      // リフレッシュ処理の追加
       console.log(res.data)
     })
       .catch((e) => {
