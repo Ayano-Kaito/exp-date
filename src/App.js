@@ -1,9 +1,9 @@
 import React from 'react';
 import Category from './Category/Category';
-import categoryMock from './mock/categories';
+import mock from './mock/mock';
 
 if (window.location.host === 'localhost:3000') {
-  categoryMock.initMock()
+  mock.initMock()
 }
 
 export default class App extends React.Component {
