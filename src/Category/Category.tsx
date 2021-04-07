@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Category.scss';
 import {Table, TableBody, TableHead, TableCell, TableRow} from '@material-ui/core';
@@ -78,7 +79,11 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
                 <TableBody>
                     {this.state.categories.map((category) => (
                         <TableRow key={category.categoryId}>
-                            <TableCell onClick={() => this.showCategory(category)}>{category.categoryName}</TableCell>
+                            <TableCell>
+                                <Link to={`/items`} onClick={() => this.showCategory(category)}>
+                                    {category.categoryName}
+                                </Link>
+                            </TableCell>
                             <TableCell onClick={() => this.editCategory(category)}>編集</TableCell>
                             <TableCell onClick={() => this.deleteCategory(category)}>削除</TableCell>
                         </TableRow>
