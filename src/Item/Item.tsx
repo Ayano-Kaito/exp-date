@@ -1,12 +1,7 @@
 import * as React from 'react';
-// import axios from 'axios';
-import itemMock from '../mock/items';
-import {Table, TableBody, TableHead, TableCell, TableRow} from '@material-ui/core';
-
-if (window.location.host === 'localhost:3000') {
-    itemMock.initMock()
-    console.log(itemMock)
-}
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import {Table, TableHead, TableBody, TableCell, TableRow} from '@material-ui/core';
 
 interface ItemProps {
     isOpen: boolean;
@@ -23,39 +18,56 @@ interface itemsType {
     totalResults: number,
     results: number,
     offset: number,
-    items: [
-      {
-        itemName: string,
-        itemId: string,
-        stock: number,
-        limitDate: string,
-        imagePath: string,
-        remark: string
-      }
-    ]
+    items: Array<item>,
+}
+
+interface item {
+    itemName: string,
+    itemId: string,
+    stock: number,
+    limitDate: string,
+    imagePath: string,
+    remark: string
 }
 
 export default function Item (props: ItemProps) {
-    const [items, setItems] = React.useState([]);
+    const [items, setItems] = React.useState<itemsType>();
 
-    // React.useEffect(() => {
-    //     axios.get("/api/items").then((res) => {
-    //         console.log(res);
-    //         setItems(res.data);
-    //     })
-    //     .catch((e) => {
-    //         console.error(e.response)
-    //     })
-    // }, items)
+    React.useEffect(() => {
+        axios.get("/api/items").then((res) => {
+            console.log(res);
+            setItems(res.data);
+        })
+        .catch((e) => {
+            console.error(e.response)
+        })
+    }, [])
 
     return (
         <Table>
             <TableHead>
                 <TableRow>
-                    <TableCell colSpan={2}>item</TableCell>
-                    <TableCell>＋</TableCell>
+                    <TableCell>
+                        <Link to={`/`}>戻る</Link>
+                    </TableCell>
+                    <TableCell>サ</TableCell>
+                    <TableCell>リ</TableCell>
+                    <TableCell colSpan={2}>{items?.categoryName}</TableCell>
+                    <TableCell align="right">＋</TableCell>
                 </TableRow>
             </TableHead>
+            <TableBody>
+                {items?.items.map((item) => (
+                    <TableRow key={item.itemId}>
+                        <TableCell>{item.imagePath}</TableCell>
+                        <TableCell>{item.itemName}</TableCell>
+                        <TableCell>削除</TableCell>
+                        <TableCell>{item.limitDate}</TableCell>
+                        <TableCell>{item.stock}</TableCell>
+                        <TableCell>{item.remark}</TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
         </Table>
     )
 }
