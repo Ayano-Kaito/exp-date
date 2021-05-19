@@ -42,15 +42,15 @@ const mock = {
           "itemId": 1,
           "stock": 10,
           "limitDate": "2020-06-30",
-          "imagePath": "https://hogehoge/sample.jpg",
+          "imagePath": "src/mock/egg.png",
           "remark": "1つ割れているからそれから使うこと"
         },
         {
           "itemName": "トマト",
           "itemId": 2,
           "stock": 5,
-          "limitDate": "",
-          "image": "",
+          "limitDate": "2021-05-30",
+          "imagePath": "",
           "remark": ""
         }
       ]

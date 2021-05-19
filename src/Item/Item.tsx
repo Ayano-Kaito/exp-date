@@ -1,73 +1,139 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {Table, TableHead, TableBody, TableCell, TableRow} from '@material-ui/core';
+import dayjs from 'dayjs';
 
-interface ItemProps {
-    isOpen: boolean;
-    onClose: () => void;
-    category: {
-        categoryId: string,
-        categoryName: string
-    } | null;
+// デザイン
+import { Table, TableHead, TableBody, TableCell, TableRow, IconButton } from '@material-ui/core';
+import './Item.scss';
+
+// 各画面のコンポーネント 
+import AddModal from './ItemAddModal';
+import EditModal from './ItemEditModal';
+import DeleteModal from './ItemDeleteModal';
+
+enum EventType {
+	Add,
+	Edit,
+	Delete
 }
 
-interface itemsType {
-    categoryName: string,
+interface ItemProps {
+  isOpen: boolean;
+  onClose: () => void;
+  category: {
     categoryId: string,
-    totalResults: number,
-    results: number,
-    offset: number,
-    items: Array<item>,
+    categoryName: string
+  } | null;
+}
+
+interface ItemState {
+  selectedItem: item | null,
+	eventType: EventType | null,
+}
+
+interface ItemsType {
+  categoryName: string,
+  categoryId: string,
+  totalResults: number,
+  results: number,
+  offset: number,
+  items: item[],
 }
 
 interface item {
-    itemName: string,
-    itemId: string,
-    stock: number,
-    limitDate: string,
-    imagePath: string,
-    remark: string
+  itemName: string,
+  itemId: string,
+  stock: string,
+  limitDate: string,
+  imagePath: string,
+  remark: string
 }
 
-export default function Item (props: ItemProps) {
-    const [items, setItems] = React.useState<itemsType>();
+export default function Item(props: ItemProps) {
+  const [items, setItems] = React.useState<ItemsType>();
+  const [select, setSelect] = React.useState<ItemState["selectedItem"]>(null);
+  const [event, setEvent] = React.useState<ItemState["eventType"]>(null);
 
-    React.useEffect(() => {
-        axios.get("/api/items").then((res) => {
-            console.log(res);
-            setItems(res.data);
-        })
-        .catch((e) => {
-            console.error(e.response)
-        })
-    }, [])
+  React.useEffect(() => {
+    axios.get("/api/items").then((res) => {
+      setItems(res.data);
+    })
+      .catch((e) => {
+        console.error(e.response)
+      })
+  }, [])
 
-    return (
-        <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell>
-                        <Link to={`/`}>戻る</Link>
-                    </TableCell>
-                    <TableCell>サ</TableCell>
-                    <TableCell>リ</TableCell>
-                    <TableCell colSpan={2}>{items?.categoryName}</TableCell>
-                    <TableCell align="right">＋</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {items?.items.map((item) => (
-                    <TableRow key={item.itemId}>
-                        <TableCell>{item.imagePath}</TableCell>
-                        <TableCell>{item.itemName}</TableCell>
-                        <TableCell>削除</TableCell>
-                        <TableCell>{item.limitDate}</TableCell>
-                        <TableCell>{item.stock}</TableCell>
-                        <TableCell>{item.remark}</TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    )
+  const addItem = () => {
+    setSelect({
+      itemName: "",
+      itemId: "",
+      stock: "",
+      limitDate: "",
+      imagePath: "",
+      remark: ""
+    });
+    setEvent(EventType.Add);
+  };
+
+  const editItem = (item: item) => {
+    setSelect(item);
+    setEvent(EventType.Edit);
+  };
+
+  const deleteItem = (item: item) => {
+    setSelect(item);
+    setEvent(EventType.Delete);
+  };
+
+  const clearEvent = () => {
+		setEvent(null);
+	};
+
+  const isExpired = (limit: string) => {
+    const today = dayjs().format().slice(0 , 10)
+    const expired = today > limit
+    if (expired) {
+      return '期限切れ'
+    }
+  }
+
+
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>
+            <Link to={`/`}>戻る</Link>
+          </TableCell>
+          <TableCell><IconButton>サ</IconButton></TableCell>
+          <TableCell><IconButton>リ</IconButton></TableCell>
+          <TableCell colSpan={3}>{items?.categoryName}</TableCell>
+          <TableCell align="right" onClick={addItem}>＋</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {items?.items.map((item) => (
+          <TableRow key={item.itemId}>
+            <TableCell><img src={item.imagePath} alt="画像"></img></TableCell>
+            <TableCell onClick={() => editItem(item)}>{item.itemName}</TableCell>
+            <TableCell onClick={() => deleteItem(item)}><IconButton>削除</IconButton></TableCell>
+            <TableCell>{item.limitDate}</TableCell>
+            <TableCell>{isExpired(item.limitDate)}</TableCell>
+            <TableCell>{item.stock}</TableCell>
+            <TableCell>{item.remark}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      {event === EventType.Add && (
+				<AddModal onClose={() => clearEvent()} isOpen={true} categoryName={items?.categoryName} />
+			)}
+      {event === EventType.Edit && (
+				<EditModal onClose={() => clearEvent()} isOpen={true} item={select} categoryName={items?.categoryName} />
+			)}
+      {event === EventType.Delete && (
+				<DeleteModal onClose={() => clearEvent()} isOpen={true} item={select} />
+			)}
+    </Table>
+  )
 }
