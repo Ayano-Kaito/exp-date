@@ -43,6 +43,17 @@ export default function EditModal (props: EditModalProps) {
     props.onClose();
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files[0];
+    console.log(e)
+    // const reader = new FileReader();
+    // reader.readAsDataURL(file[0]);
+    // reader.onload = () => {
+    //   const image = document.getElementById('img');
+    //   image.src = reader.result;
+    // }
+  };
+
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name
@@ -61,7 +72,9 @@ export default function EditModal (props: EditModalProps) {
             <TableCell>アイテムを編集</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell><TextField type="file">{item.imagePath}</TextField></TableCell>
+            <TableCell>
+              <TextField type="file" onChange={handleImageChange}><img src={item.imagePath}></img></TextField>
+            </TableCell>
             <TableCell>{props.categoryName}</TableCell>
           </TableRow>
           <TableRow>
