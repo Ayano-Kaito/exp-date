@@ -26,6 +26,7 @@ export default function EditModal (props: EditModalProps) {
     imagePath: props.item?.imagePath,
     remark: props.item?.remark
   })
+  const [photos, setPhotos] = React.useState<File[]>([]);
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
     
 
@@ -44,14 +45,12 @@ export default function EditModal (props: EditModalProps) {
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files[0];
-    console.log(e)
-    // const reader = new FileReader();
-    // reader.readAsDataURL(file[0]);
-    // reader.onload = () => {
-    //   const image = document.getElementById('img');
-    //   image.src = reader.result;
-    // }
+    if (e.target.files === null || e.target.files.length === 0) {
+      return;
+    }
+    const files = Object.values(e.target.files).concat();
+    setPhotos(files);
+    console.log(files[0])
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +72,7 @@ export default function EditModal (props: EditModalProps) {
           </TableRow>
           <TableRow>
             <TableCell>
-              <TextField type="file" onChange={handleImageChange}><img src={item.imagePath}></img></TextField>
+              <TextField type="file" name="photos" onChange={handleImageChange}><img src={item.imagePath}></img></TextField>
             </TableCell>
             <TableCell>{props.categoryName}</TableCell>
           </TableRow>
