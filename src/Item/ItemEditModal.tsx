@@ -26,7 +26,7 @@ export default function EditModal (props: EditModalProps) {
     imagePath: props.item?.imagePath,
     remark: props.item?.remark
   })
-  const [photos, setPhotos] = React.useState<File[]>([]);
+  const [photos] = React.useState<File[]>([]);
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
     
 
@@ -34,7 +34,6 @@ export default function EditModal (props: EditModalProps) {
     const params = {
       item: item
     };
-    console.log(params);
     axios.put("/api/items", { params }).then((res) => {
       console.log(res.data)
     })
@@ -49,8 +48,23 @@ export default function EditModal (props: EditModalProps) {
       return;
     }
     const files = Object.values(e.target.files).concat();
-    setPhotos(files);
-    console.log(files[0])
+    const pickedPhotos = files.filter((file) => {
+      if (
+        ![
+          "image/gif",
+          "image/jpeg",
+          "image/png",
+          "image/bmp",
+          "image/svg+xml",
+        ].includes(file.type)
+      ) {
+        return false;
+      }
+      return true;
+    })
+    const concatPhotos = photos.concat(pickedPhotos);
+    const path = concatPhotos[0].name
+    setItem({ ...item, imagePath: path })
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +86,7 @@ export default function EditModal (props: EditModalProps) {
           </TableRow>
           <TableRow>
             <TableCell>
-              <TextField type="file" name="photos" onChange={handleImageChange}><img src={item.imagePath}></img></TextField>
+              <TextField name="photos" type="file" onChange={handleImageChange}><img src={item.imagePath}></img></TextField>
             </TableCell>
             <TableCell>{props.categoryName}</TableCell>
           </TableRow>

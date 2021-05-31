@@ -18,6 +18,7 @@ export default function AddModal (props: AddModalProps) {
     imagePath: "",
     remark: ""
   })
+  const [photos] = React.useState<File[]>([]);
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
     
 
@@ -25,7 +26,6 @@ export default function AddModal (props: AddModalProps) {
     const params = {
       item: item
     };
-    console.log(params);
     axios.post("/api/items", { params }).then((res) => {
       console.log(res.data)
     })
@@ -33,6 +33,31 @@ export default function AddModal (props: AddModalProps) {
         console.error(e.response)
       })
     props.onClose();
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null || e.target.files.length === 0) {
+      return;
+    }
+    const files = Object.values(e.target.files).concat();
+    const pickedPhotos = files.filter((file) => {
+      if (
+        ![
+          "image/gif",
+          "image/jpeg",
+          "image/png",
+          "image/bmp",
+          "image/svg+xml",
+        ].includes(file.type)
+      ) {
+        return false;
+      }
+      return true;
+    })
+    console.log(pickedPhotos)
+    const concatPhotos = photos.concat(pickedPhotos);
+    const path = concatPhotos[0].name
+    setItem({ ...item, imagePath: path })
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +78,9 @@ export default function AddModal (props: AddModalProps) {
           <TableCell>アイテムを登録</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell><TextField type="file">{item.imagePath}</TextField></TableCell>
+          <TableCell>
+            <TextField name="photos" type="file" onChange={handleImageChange}><img src={item.imagePath}></img></TextField>
+          </TableCell>
           <TableCell>{props.categoryName}</TableCell>
         </TableRow>
         <TableRow>
