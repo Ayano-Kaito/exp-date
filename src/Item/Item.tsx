@@ -54,6 +54,7 @@ export default function Item(props: ItemProps) {
   const [items, setItems] = React.useState<ItemsType>();
   const [select, setSelect] = React.useState<ItemState["selectedItem"]>(null);
   const [event, setEvent] = React.useState<ItemState["eventType"]>(null);
+  const [isDisplay, setIsDisplay ] = React.useState("list");
 
   React.useEffect(() => {
     axios.get("/api/items").then((res) => {
@@ -98,6 +99,9 @@ export default function Item(props: ItemProps) {
     }
   }
 
+  const displayChange = (display: string) => {
+    setIsDisplay(display);
+  }
 
   return (
     <Table>
@@ -106,13 +110,13 @@ export default function Item(props: ItemProps) {
           <TableCell>
             <Link to={`/`}>戻る</Link>
           </TableCell>
-          <TableCell><IconButton>サ</IconButton></TableCell>
-          <TableCell><IconButton>リ</IconButton></TableCell>
+          <TableCell><IconButton onClick={() => displayChange("thumbnail")}>サ</IconButton></TableCell>
+          <TableCell><IconButton onClick={() => displayChange("list")}>リ</IconButton></TableCell>
           <TableCell colSpan={3}>{items?.categoryName}</TableCell>
           <TableCell align="right" onClick={addItem}>＋</TableCell>
         </TableRow>
       </TableHead>
-      <TableBody>
+      <TableBody className={`Item__${isDisplay ? "list" : "thumbnail"}}`}>
         {items?.items.map((item) => (
           <TableRow key={item.itemId}>
             <TableCell><img src={item.imagePath} alt="画像"></img></TableCell>
