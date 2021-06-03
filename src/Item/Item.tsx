@@ -4,8 +4,9 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 
 // デザイン
-import { Table, TableHead, TableBody, TableCell, TableRow, IconButton } from '@material-ui/core';
 import './Item.scss';
+import { Table, TableHead, TableBody, TableCell, TableRow, IconButton } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
 
 // 各画面のコンポーネント 
 import AddModal from './ItemAddModal';
@@ -55,6 +56,9 @@ export default function Item(props: ItemProps) {
   const [select, setSelect] = React.useState<ItemState["selectedItem"]>(null);
   const [event, setEvent] = React.useState<ItemState["eventType"]>(null);
   const [isDisplay, setIsDisplay ] = React.useState("list");
+  const [page, setPage] = React.useState(1)
+  const [offset, setOffset] = React.useState(0);
+
 
   React.useEffect(() => {
     axios.get("/api/items").then((res) => {
@@ -103,6 +107,10 @@ export default function Item(props: ItemProps) {
     setIsDisplay(display);
   }
 
+  const changePage = (offset: number) => {
+    setOffset(offset);
+  }
+
   return (
     <Table>
       <TableHead>
@@ -138,6 +146,7 @@ export default function Item(props: ItemProps) {
       {event === EventType.Delete && (
 				<DeleteModal onClose={() => clearEvent()} isOpen={true} item={select} />
 			)}
+      <Pagination className="Item__pagination" count={10} variant="outlined" onChange={(e, offset) => changePage(offset)} page={page} />
     </Table>
   )
 }
