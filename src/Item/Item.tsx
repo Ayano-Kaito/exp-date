@@ -37,7 +37,7 @@ interface ItemsType {
   categoryName: string,
   categoryId: string,
   totalResults: number,
-  results: number,
+  // results: number,
   offset: number,
   items: item[],
 }
@@ -56,9 +56,11 @@ export default function Item(props: ItemProps) {
   const [select, setSelect] = React.useState<ItemState["selectedItem"]>(null);
   const [event, setEvent] = React.useState<ItemState["eventType"]>(null);
   const [isDisplay, setIsDisplay ] = React.useState("list");
-  const [page, setPage] = React.useState(1)
-  const [offset, setOffset] = React.useState(0);
-
+  const [page, setPage] = React.useState(1);
+  const [pageCount, setPageCount] = React.useState(1); //ページ数
+  // const [offset, setOffset] = React.useState(0);
+  const [displayedItems, setDisplayedItems] = React.useState([]); //表示データ
+  const displayNum = 1; //1ページあたりの項目数
 
   React.useEffect(() => {
     axios.get("/api/items").then((res) => {
@@ -67,6 +69,14 @@ export default function Item(props: ItemProps) {
       .catch((e) => {
         console.error(e.response)
       })
+  }, [])
+
+  React.useEffect(() => {
+    if(items?.items.length) {
+      setPageCount(items?.items.length / displayNum);
+      setDisplayedItems(items?.slice(((page - 1) * displayNum), page * displayNum))
+      console.log(displayedItems)
+    }
   }, [])
 
   const addItem = () => {
@@ -107,8 +117,9 @@ export default function Item(props: ItemProps) {
     setIsDisplay(display);
   }
 
-  const changePage = (offset: number) => {
-    setOffset(offset);
+  const changePage = (index: number) => {
+    setPage(index);
+    setDisplayedItems(items?.items.slice(((index - 1) * displayNum), index * displayNum))
   }
 
   return (
@@ -146,7 +157,7 @@ export default function Item(props: ItemProps) {
       {event === EventType.Delete && (
 				<DeleteModal onClose={() => clearEvent()} isOpen={true} item={select} />
 			)}
-      <Pagination className="Item__pagination" count={10} variant="outlined" onChange={(e, offset) => changePage(offset)} page={page} />
+      <Pagination className="Item__pagination" count={pageCount} variant="outlined" onChange={changePage(page)} page={page} />
     </Table>
   )
 }
