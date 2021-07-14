@@ -34,8 +34,6 @@ const mock = {
       "categoryName": "食材",
       "categoryId": 1,
       "totalResults": 2, // 全件数
-      "results": 20, // 1ページに表示される件数
-      "offset": 0, // 
       "items": [
         {
           "itemName": "たまご",

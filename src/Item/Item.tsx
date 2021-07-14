@@ -37,9 +37,7 @@ interface ItemsType {
   categoryName: string,
   categoryId: string,
   totalResults: number,
-  // results: number,
-  offset: number,
-  items: item[],
+  items: Array<item>,
 }
 
 interface item {
@@ -52,31 +50,29 @@ interface item {
 }
 
 export default function Item(props: ItemProps) {
-  const [items, setItems] = React.useState<ItemsType>();
+  const [itemInfo, setItemInfo] = React.useState<ItemsType>({
+    categoryName: "",
+    categoryId: "",
+    totalResults: 0,
+    items: []
+  });
   const [select, setSelect] = React.useState<ItemState["selectedItem"]>(null);
   const [event, setEvent] = React.useState<ItemState["eventType"]>(null);
   const [isDisplay, setIsDisplay ] = React.useState("list");
-  const [page, setPage] = React.useState(1);
-  const [pageCount, setPageCount] = React.useState(1); //ページ数
-  // const [offset, setOffset] = React.useState(0);
-  const [displayedItems, setDisplayedItems] = React.useState([]); //表示データ
-  const displayNum = 1; //1ページあたりの項目数
+  const [page, setPage] = React.useState(1); // ページ番号
+  const [totalPage, setTotalPage] = React.useState(1); //総ページ数
+  const [displayedItems, setDisplayedItems] = React.useState<ItemsType["items"]>(); //表示データ
+  const displayNum = 1; //1ページあたりの表示数
 
   React.useEffect(() => {
     axios.get("/api/items").then((res) => {
-      setItems(res.data);
+      setItemInfo(res.data);
+      setTotalPage(res.data.totalResults / displayNum);
+      setDisplayedItems(res.data.items.slice(((page - 1) * displayNum), page * displayNum));
     })
       .catch((e) => {
         console.error(e.response)
       })
-  }, [])
-
-  React.useEffect(() => {
-    if(items?.items.length) {
-      setPageCount(items?.items.length / displayNum);
-      setDisplayedItems(items?.slice(((page - 1) * displayNum), page * displayNum))
-      console.log(displayedItems)
-    }
   }, [])
 
   const addItem = () => {
@@ -117,9 +113,9 @@ export default function Item(props: ItemProps) {
     setIsDisplay(display);
   }
 
-  const changePage = (index: number) => {
+  const changePage = (event: any, index: number) => {
     setPage(index);
-    setDisplayedItems(items?.items.slice(((index - 1) * displayNum), index * displayNum))
+    setDisplayedItems(itemInfo?.items.slice(((index - 1) * displayNum), index * displayNum))
   }
 
   return (
@@ -131,33 +127,35 @@ export default function Item(props: ItemProps) {
           </TableCell>
           <TableCell><IconButton onClick={() => displayChange("thumbnail")}>サ</IconButton></TableCell>
           <TableCell><IconButton onClick={() => displayChange("list")}>リ</IconButton></TableCell>
-          <TableCell colSpan={3}>{items?.categoryName}</TableCell>
+          <TableCell colSpan={3}>{itemInfo?.categoryName}</TableCell>
           <TableCell align="right" onClick={addItem}>＋</TableCell>
         </TableRow>
       </TableHead>
       <TableBody className={`Item__${isDisplay ? "list" : "thumbnail"}}`}>
-        {items?.items.map((item) => (
-          <TableRow key={item.itemId}>
-            <TableCell><img src={item.imagePath} alt="画像"></img></TableCell>
-            <TableCell onClick={() => editItem(item)}>{item.itemName}</TableCell>
-            <TableCell onClick={() => deleteItem(item)}><IconButton>削除</IconButton></TableCell>
-            <TableCell>{item.limitDate}</TableCell>
-            <TableCell>{isExpired(item.limitDate)}</TableCell>
-            <TableCell>{item.stock}</TableCell>
-            <TableCell>{item.remark}</TableCell>
-          </TableRow>
-        ))}
+        {displayedItems && (
+          displayedItems.map((item) => (
+            <TableRow key={item.itemId}>
+              <TableCell><img src={item.imagePath} alt="画像"></img></TableCell>
+              <TableCell onClick={() => editItem(item)}>{item.itemName}</TableCell>
+              <TableCell onClick={() => deleteItem(item)}><IconButton>削除</IconButton></TableCell>
+              <TableCell>{item.limitDate}</TableCell>
+              <TableCell>{isExpired(item.limitDate)}</TableCell>
+              <TableCell>{item.stock}</TableCell>
+              <TableCell>{item.remark}</TableCell>
+            </TableRow>
+          ))
+        )}
       </TableBody>
       {event === EventType.Add && (
-				<AddModal onClose={() => clearEvent()} isOpen={true} categoryName={items?.categoryName} />
+				<AddModal onClose={() => clearEvent()} isOpen={true} categoryName={itemInfo?.categoryName} />
 			)}
       {event === EventType.Edit && (
-				<EditModal onClose={() => clearEvent()} isOpen={true} item={select} categoryName={items?.categoryName} />
+				<EditModal onClose={() => clearEvent()} isOpen={true} item={select} categoryName={itemInfo?.categoryName} />
 			)}
       {event === EventType.Delete && (
 				<DeleteModal onClose={() => clearEvent()} isOpen={true} item={select} />
 			)}
-      <Pagination className="Item__pagination" count={pageCount} variant="outlined" onChange={changePage(page)} page={page} />
+      <Pagination className="Item__pagination" count={totalPage} variant="outlined" onChange={changePage} page={page} />
     </Table>
   )
 }
