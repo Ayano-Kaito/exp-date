@@ -69,9 +69,10 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
 
 	render() {
 		return (
-			<Table>
+			<>
+			<Table className="Category">
 				<TableHead>
-					<TableRow>
+					<TableRow className="Category__header">
 						<TableCell colSpan={2}>カテゴリーを選択してください</TableCell>
 						<TableCell onClick={() => this.addCategory()}>追加</TableCell>
 					</TableRow>
@@ -84,11 +85,12 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
 									{category.categoryName}
 								</Link>
 							</TableCell>
-							<TableCell onClick={() => this.editCategory(category)}>編集</TableCell>
-							<TableCell onClick={() => this.deleteCategory(category)}>削除</TableCell>
+								<TableCell align="right" onClick={() => this.editCategory(category)}>編集</TableCell>
+								<TableCell align="right" onClick={() => this.deleteCategory(category)}>削除</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
+			</Table>
 				{this.state.eventType === EventType.Item && (
 					<Item onClose={() => this.clearEvent()} isOpen={true} category={this.state.selectedCategory} />
 				)}
@@ -101,7 +103,7 @@ class Category extends React.Component<CategoriesProps, CategoriesState> {
 				{this.state.eventType === EventType.Delete && (
 					<DelModal onClose={() => this.clearEvent()} isOpen={true} category={this.state.selectedCategory} />
 				)}
-			</Table>
+			</>
 		)
 	}
 }

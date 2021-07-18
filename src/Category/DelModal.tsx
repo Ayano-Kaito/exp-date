@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import './Category.scss';
 import { Button, Dialog, DialogActions, DialogContent } from '@material-ui/core';
 
 interface DeleteModalProps {
@@ -28,7 +29,7 @@ export default function DeleteModal(props: DeleteModalProps) {
   };
 
   return (
-    <Dialog open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
+    <Dialog className="DeleteCategory" open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
       <DialogContent>{props.category?.categoryName}</DialogContent>
       <DialogContent>を削除しますか？</DialogContent>
       <DialogActions>
