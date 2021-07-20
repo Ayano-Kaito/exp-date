@@ -3,7 +3,8 @@
 }
 
 .Category__header .MuiTableCell-head {
-  color: white;
+  color: #fff;
+  font-weight: bold;
 }
 
 .AddCategory .MuiPaper-rounded {
