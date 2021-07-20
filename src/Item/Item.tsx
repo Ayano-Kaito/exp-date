@@ -107,6 +107,10 @@ export default function Item(props: ItemProps) {
     setEvent(null);
   };
 
+  const backHome = () => {
+    document.location.href = "/";
+  }
+
   const isExpired = (limit: string) => {
     const today = dayjs().format().slice(0, 10)
     const expired = today > limit
@@ -146,15 +150,17 @@ export default function Item(props: ItemProps) {
 
   return (
     <>
-      <Table>
-        <TableHead>
-          <TableRow className="Item__header">
-            <TableCell>
-              <Link to={`/`}><HomeOutlinedIcon /></Link>
-            </TableCell>
+      <Table className="Item">
+        <TableHead className="Item__header">
+          <TableRow className="Item__icon">
+            <TableCell onClick={backHome}><HomeOutlinedIcon /></TableCell>
             <TableCell onClick={() => displayChange("thumbnail")}><AppsOutlinedIcon /></TableCell>
             <TableCell onClick={() => displayChange("list")}><MenuOutlinedIcon /></TableCell>
-            <TableCell colSpan={3}>{itemInfo?.categoryName}</TableCell>
+          </TableRow>
+          <TableRow className="Item__categoryName">
+            <TableCell>{itemInfo?.categoryName}</TableCell>
+          </TableRow>
+          <TableRow className="Item__add">
             <TableCell align="right" onClick={addItem}><AddOutlinedIcon /></TableCell>
           </TableRow>
         </TableHead>
@@ -163,8 +169,10 @@ export default function Item(props: ItemProps) {
             {displayedItems && (
               displayedItems.map((item) => (
                 <TableRow key={item.itemId}>
-                  <TableRow className="Item">
+                  <TableRow className="Item__image">
                     <TableCell><img src={item.imagePath} alt="画像" /></TableCell>
+                  </TableRow>
+                  <TableRow>
                     <TableCell onClick={() => editItem(item)}>{item.itemName}</TableCell>
                     <TableCell onClick={() => deleteItem(item)}><DeleteOutlineOutlinedIcon /></TableCell>
                   </TableRow>
@@ -183,7 +191,7 @@ export default function Item(props: ItemProps) {
             {displayedItems && (
               displayedItems.map((item) => (
                 <GridList key={item.itemId}>
-                  <GridListTile><img src={item.imagePath} alt="画像" />
+                  <GridListTile onClick={() => editItem(item)}><img src={item.imagePath} alt="画像" />
                     <GridListTileBar
                       title={item.itemName}
                       actionIcon={
