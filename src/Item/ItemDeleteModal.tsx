@@ -1,14 +1,17 @@
 import * as React from 'react';
 import axios from 'axios';
-import './Category.scss';
 import { Button, Dialog, DialogActions, DialogContent } from '@material-ui/core';
 
 interface DeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
-  category: {
-    categoryId: string,
-    categoryName: string
+  item: {
+    itemName: string,
+    itemId: string,
+    stock: string,
+    limitDate: string,
+    imagePath: string,
+    remark: string
   } | null;
 };
 
@@ -16,9 +19,9 @@ export default function DeleteModal(props: DeleteModalProps) {
 
   const clickDeleteButton = () => {
     const params = {
-      categoryId: props.category?.categoryId
+      categoryId: props.item?.itemId
     };
-    axios.post("/api/categories", { params }).then((res) => {
+    axios.delete("/api/items", { params }).then((res) => {
       // リフレッシュ処理の追加
       console.log(res.data)
     })
@@ -29,8 +32,8 @@ export default function DeleteModal(props: DeleteModalProps) {
   };
 
   return (
-    <Dialog className="DeleteCategory" open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
-      <DialogContent>{props.category?.categoryName}</DialogContent>
+    <Dialog open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
+      <DialogContent>{props.item?.itemName}</DialogContent>
       <DialogContent>を削除しますか？</DialogContent>
       <DialogActions>
         <Button onClick={props.onClose} color="primary">

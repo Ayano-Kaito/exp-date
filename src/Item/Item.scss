@@ -1,0 +1,53 @@
+.Item {
+    .MuiTableHead-root {
+      display: flex;
+      justify-content: space-between;
+      background-color: #6495ED;
+			padding: 0 8px;
+    }
+
+    &__header {
+      .MuiTableCell-root {
+        border-bottom: none;
+				color: #fff;
+				cursor: pointer;
+				padding: 12px 4px 8px;
+      }
+    }
+
+  &__icon {
+  }
+
+  &__categoryName {
+		.MuiTableCell-root {
+    	font-weight: bold;
+			cursor: none;
+		}
+  }
+
+  &__add {
+
+  }
+
+  &__list {
+    font-size: 12px;
+  }
+
+  &__image {
+    .MuiTableRow-root {
+      display: contents;
+    }
+  }
+
+  &__thumbnail {
+    display: flex;
+    flex-direction: row;
+  }
+
+	&__pagination {
+		.MuiPagination-ul {
+			margin: 12px;
+			justify-content: center;
+		}
+	}
+}

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import './Category.scss';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
 interface AddModalProps {
@@ -31,8 +32,8 @@ export default function AddModal(props: AddModalProps) {
   };
   
   return (
-    <Dialog open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
-      <DialogTitle>カテゴリー名を追加します</DialogTitle>
+    <Dialog className="AddCategory" open={props.isOpen} onClose={props.onClose} aria-labelledby="form-dialog-title">
+      <DialogTitle className="AddCategory__title">カテゴリーを追加します</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus

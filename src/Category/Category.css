@@ -1,44 +1,48 @@
-.category {
-  border-collapse: collapse;
-  width: 100%;
+.Category__header {
+  background-color: #6495ED;
 }
 
-.category__header {
-  color: white;
-  background-color: #FFCC66;
-  font-size: 17px;
-  width: 100%;
+.Category__header .MuiTableCell-head {
+  color: #fff;
+  font-weight: bold;
 }
 
-.category__header--title {
-  text-align: left;
-  padding: 10px 15px;
+.AddCategory .MuiPaper-rounded {
+  border-radius: 30px;
 }
 
-.category__header--add {
-  text-align: right;
-  padding: 10px 30px;
+.AddCategory .MuiDialogActions-root {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.category__info {
-  border-bottom: 1px dashed gray;
-  color: black;
-  padding: 15px auto;
-}
-
-.category__info--item {
+.AddCategory__title .MuiTypography-h6 {
   font-size: 16px;
-  padding: 15px 0 15px 25px;
 }
 
-.category__info--edit {
-  font-size: 14px;
-  padding: 10px 20px;
-  text-align: right;
+.EditCategory .MuiPaper-rounded {
+  border-radius: 30px;
 }
 
-.category__info--delete {
-  font-size: 14px;
-  padding: 10px 20px;
-  text-align: right;
+.EditCategory .MuiDialogActions-root {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.EditCategory__title .MuiTypography-h6 {
+  font-size: 16px;
+}
+
+.DeleteCategory .MuiPaper-rounded {
+  border-radius: 23px;
+  width: 80%;
+}
+
+.DeleteCategory .MuiDialogContent-root {
+  text-align: center;
+}
+
+.DeleteCategory .MuiDialogActions-root {
+  display: flex;
+  justify-content: space-evenly;
 }

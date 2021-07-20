@@ -1,0 +1,36 @@
+.Item .MuiTableHead-root {
+  display: flex;
+  justify-content: space-between;
+  background-color: #6495ED;
+  padding: 0 8px;
+}
+
+.Item__header .MuiTableCell-root {
+  border-bottom: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 12px 4px 8px;
+}
+
+.Item__categoryName .MuiTableCell-root {
+  font-weight: bold;
+  cursor: none;
+}
+
+.Item__list {
+  font-size: 12px;
+}
+
+.Item__image .MuiTableRow-root {
+  display: contents;
+}
+
+.Item__thumbnail {
+  display: flex;
+  flex-direction: row;
+}
+
+.Item__pagination .MuiPagination-ul {
+  margin: 12px;
+  justify-content: center;
+}

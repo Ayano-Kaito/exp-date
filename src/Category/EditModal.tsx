@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import './Category.scss';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
 interface EditModalProps {
@@ -49,8 +50,8 @@ export default class EditModal extends React.Component<EditModalProps, EditModal
 
   render() {
     return (
-      <Dialog open={this.props.isOpen} onClose={this.props.onClose} aria-labelledby="form-dialog-title">
-        <DialogTitle>カテゴリー名を編集します</DialogTitle>
+      <Dialog className="EditCategory" open={this.props.isOpen} onClose={this.props.onClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className="EditCategory__title">カテゴリー名を編集します</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
